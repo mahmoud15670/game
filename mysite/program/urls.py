@@ -3,5 +3,5 @@ from . import views
 from django.views import generic
 
 urlpatterns = [
-    path('', generic.View.as_view())
+    path('', generic.TemplateView.as_view(template_name='index.html'))
 ]
