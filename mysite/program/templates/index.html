@@ -7,6 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>hi</h1>
+    <form action="{% url 'user' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="send">
+    </form>
 </body>
 </html>

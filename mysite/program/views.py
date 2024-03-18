@@ -1,13 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views import View
+from .forms import *
+from django.views import generic
 
-
-class MyView(View):
-    result='hi'
+class UserView(generic.FormView):
+    def post(self, request):
+        form =Myform(request.POST)
+        if form.is_valid():
+            return HttpResponse('done')
+    
     def get(self, request):
-
-        return HttpResponse(self.result)
-
-class greet(MyView):
-    result='bye'
+        form = Myform
+        return render(request, 'index.html' ,{
+            'form':form
+        })
