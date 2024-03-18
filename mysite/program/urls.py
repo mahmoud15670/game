@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
-from django.views import View
+from django.views import generic
 
 urlpatterns = [
-    path('', View.as_view('hi'))
+    path('', generic.View.as_view())
 ]
