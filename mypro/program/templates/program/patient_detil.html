@@ -10,6 +10,7 @@
         <th>doctor's name</th>
         <th>phone</th>
         <th>tests</th>
+        <th>total price</th>
         <th>entry time</th>
     </thead>
     <tbody>
@@ -23,6 +24,7 @@
             {{test}}
             {% endfor %}
         </td>
+        <td>{{patient.total_price}}</td>
         <td>{{patient.entry}}</td>
     </tbody>
 </table>

@@ -21,6 +21,12 @@ class Patient(models.Model):
     tests = models.ManyToManyField('Test')
     entry = models.DateTimeField(default=timezone.now(), editable=False)
 
+    def total_price(self):
+        price = []
+        for test in self.tests.all():
+            price.append(test.price)
+        return sum(price)
+
     def __str__(self):
         return self.name
 
@@ -39,5 +45,6 @@ class Test(models.Model):
 class Result(models.Model):
     patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
     test = models.ForeignKey('Test', on_delete=models.CASCADE)
-    result = models.CharField(max_length=20)
+    result = models.CharField(max_length=20, blank=True)
     ref = models.TextField()
+
