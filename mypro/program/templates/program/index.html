@@ -1,16 +1,16 @@
 {% extends 'program/layout.html' %}
 
 {% block body %}
-    <h1>Patients</h1>
-    <ul>
-        {% for patient in queries.patients %}
-            <li><a href="{% url 'patient_detil' patient.id %}">{{patient}}</a></li>
-        {% endfor %}
-    </ul>
-    <h1>Tests</h1>
-    <ul>
-        {% for test in queries.tests %}
-            <li><a href="{% url 'test_detil' test.id %}">{{test}}</a></li>
-        {% endfor %}
-    </ul>
+<h1>Patients</h1>
+<ul>
+    {% for patient in queries.patients %}
+    <li><a href="{% url 'patient_detil' patient.id %}">{{patient}}</a></li>
+    {% endfor %}
+</ul>
+<h1>Tests</h1>
+<ul>
+    {% for test in queries.tests %}
+    <li><a href="{% url 'test_detil' test.id %}">{{test}}</a></li>
+    {% endfor %}
+</ul>
 {% endblock %}

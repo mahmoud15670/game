@@ -1,31 +1,31 @@
 {% extends 'program/layout.html' %}
 
 {% block body %}
-    <h1>{{patient}}</h1>
-    <table>
-        <thead>
-            <th>name</th>
-            <th>age</th>
-            <th>gender</th>
-            <th>doctor's name</th>
-            <th>phone</th>
-            <th>tests</th>
-            <th>entry time</th>
-        </thead>
-        <tbody>
-            <td>{{patient.name}}</td>
-            <td>{{patient.age}} {{patient.date}}</td>
-            <td>{{patient.gender}}</td>
-            <td>{{patient.dr}}</td>
-            <td>{{patient.phone}}</td>
-            <td>
-                {% for test in patient.tests.all %}
-                    {{test}} 
-                {% endfor %}
-            </td>
-            <td>{{patient.entry}}</td>
-        </tbody>
-    </table>
-    <a href="{% url 'patient_edit' patient.id %}">edit</a>
-    <a href="{% url 'patient_delete' patient.id %}">delete</a>
+<h1>{{patient}}</h1>
+<table>
+    <thead>
+        <th>name</th>
+        <th>age</th>
+        <th>gender</th>
+        <th>doctor's name</th>
+        <th>phone</th>
+        <th>tests</th>
+        <th>entry time</th>
+    </thead>
+    <tbody>
+        <td>{{patient.name}}</td>
+        <td>{{patient.age}} {{patient.date}}</td>
+        <td>{{patient.gender}}</td>
+        <td>{{patient.dr}}</td>
+        <td>{{patient.phone}}</td>
+        <td>
+            {% for test in patient.tests.all %}
+            {{test}}
+            {% endfor %}
+        </td>
+        <td>{{patient.entry}}</td>
+    </tbody>
+</table>
+<a href="{% url 'patient_edit' patient.id %}">edit</a>
+<a href="{% url 'patient_delete' patient.id %}">delete</a>
 {% endblock %}
