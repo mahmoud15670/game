@@ -7,10 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{% url 'user' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="send">
-    </form>
+    <ul>
+        {% for user in users %}
+            <li><a href="{% url 'user_detail' user.id %}">{{user.name}}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_user' %}">create user</a>
 </body>
 </html>

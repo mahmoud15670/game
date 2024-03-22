@@ -1,25 +1,30 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import HttpResponse
-from django.urls import reverse
+from django.urls import reverse_lazy
 from .forms import *
 from django.views import generic
 
-class UserView(generic.FormView):
+class IndexView(generic.ListView):
+    model = user
     template_name = 'index.html'
-    form_class = Myform
-    def post(self, request):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('user'))
-        return render(request, self.template_name ,{'form':form})
-    
-    def get(self, request):
-        form = self.form_class
-        return render(request, self.template_name ,{'form':form})
+    context_object_name = 'users'
+class UserView(generic.CreateView):
+    template_name = 'create_user.html'
+    model = user
+    fields = '__all__'
+    success_url = reverse_lazy('index')
 
-class UpdateUserView(generic.edit.UpdateView):
+class UserDetailView(generic.DetailView):
+    model = user
+    template_name = 'user_detail.html'
+    context_object_name = 'user'
+class UpdateUserView(generic.UpdateView):
     model = user
     fields = '__all__'
     template_name_suffix = '_update_form'
-    success_url = '/'
+    success_url = reverse_lazy('index')
+
+class UserDeleteView(generic.DeleteView):
+    model = user
+    template_name_suffix = '_confirm_delete'
+    success_url = reverse_lazy('index')

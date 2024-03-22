@@ -1,0 +1,18 @@
+<h1>user</h1>
+<table>
+    <thead>
+        <th>name</th>
+        <th>email</th>
+        <th>age</th>
+        <th>single</th>
+    </thead>
+    <tbody>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.age}}</td>
+        <td>{{user.single}}</td>
+    </tbody>
+</table>
+
+<a href="{% url 'edit' user.id %}">edit</a>
+<a href="{% url 'delete' user.id %}">delete</a>
