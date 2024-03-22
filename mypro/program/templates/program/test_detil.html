@@ -1,0 +1,23 @@
+{% extends 'program/layout.html' %}
+
+{% block body %}
+    <h1>{{test}}</h1>
+    <table>
+        <thead>
+            <th>name</th>
+            <th>price</th>
+            <th>unit</th>
+            <th>male refrance</th>
+            <th>female refrance</th>
+        </thead>
+        <tbody>
+            <td>{{test.name}}</td>
+            <td>{{test.price}}</td>
+            <td>{{test.unit}}</td>
+            <td>{{test.male_ref}}</td>
+            <td>{{test.female_ref}}</td>
+        </tbody>
+    </table>
+    <a href="{% url 'test_edit' test.id %}">edit</a>
+    <a href="{% url 'test_delete' test.id %}">delete</a>
+{% endblock %}

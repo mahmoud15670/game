@@ -1,0 +1,10 @@
+{% extends 'program/layout.html' %}
+
+{% block body %}
+    <form method="post">
+        {% csrf_token %}
+        <p>Do you want to delete {{patient}} !</p>
+        {{form.as_p}}
+        <input type="submit" value="save">
+    </form>
+{% endblock %}
