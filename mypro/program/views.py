@@ -5,13 +5,9 @@ from .models import *
 
 
 class IndexView(generic.ListView):
-    queryset = {}
-    queryset = {
-        'patients': Patient.objects.all(),
-        'tests': Test.objects.all()
-    }
+    model = Patient
     template_name = 'program/index.html'
-    context_object_name = 'queries'
+    context_object_name = 'patients'
 
 
 class PatientCreateView(generic.CreateView):
@@ -20,20 +16,8 @@ class PatientCreateView(generic.CreateView):
     fields = '__all__'
     def form_valid(self, form):
         object = form.save()
-        for test in object.tests.all():
-            result = Result(
-                patient=Patient.objects.get(pk=object.id),
-                test=test,
-                ref=''
-            )
-            result.save()
-            if object.gender == 'male':
-                result.ref = test.male_ref
-            else:
-                result.ref = test.female_ref
-            result.save()
+        object.add_result()
         return HttpResponseRedirect(reverse('index'))
-    success_url = reverse_lazy('index')
 
 
 class PatientDetilView(generic.DetailView):
@@ -46,15 +30,21 @@ class PatientEditView(generic.UpdateView):
     model = Patient
     template_name_suffix = '_update_form'
     fields = '__all__'
+    def form_valid(self, form):
+        object = form.save()
+        object.add_result()
+        return HttpResponseRedirect(reverse('index'))
     success_url = reverse_lazy('index')
-
 
 class PatientDeleteView(generic.DeleteView):
     model = Patient
     template_name_suffix = '_delete_form'
     success_url = reverse_lazy('index')
 
-
+class TestListView(generic.ListView):
+    model = Test
+    template_name = 'program/test_list.html'
+    context_object_name = 'tests'
 class TestCreateView(generic.CreateView):
     model = Test
     template_name_suffix = '_create_form'
@@ -72,3 +62,4 @@ class TestEditView(PatientEditView):
 
 class TestDeleteView(PatientDeleteView):
     model = Test
+

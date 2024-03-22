@@ -3,6 +3,11 @@ from django.db import models
 
 # Create your models here.
 
+class Result(models.Model):
+    patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
+    test = models.ForeignKey('Test', on_delete=models.CASCADE)
+    result = models.CharField(max_length=20, blank=True)
+    ref = models.TextField()
 
 class Patient(models.Model):
     name = models.CharField(max_length=40)
@@ -27,6 +32,19 @@ class Patient(models.Model):
             price.append(test.price)
         return sum(price)
 
+    def add_result(self):
+        for test in self.tests.all():
+            result = Result(
+                patient = Patient.objects.get(pk=self.id),
+                test = test,
+                ref = ''
+            )
+            if self.gender == 'male':
+                result.ref = test.male_ref
+            else:
+                result.ref = test.female_ref
+            result.save()
+
     def __str__(self):
         return self.name
 
@@ -42,9 +60,4 @@ class Test(models.Model):
         return self.name
 
 
-class Result(models.Model):
-    patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
-    test = models.ForeignKey('Test', on_delete=models.CASCADE)
-    result = models.CharField(max_length=20, blank=True)
-    ref = models.TextField()
 

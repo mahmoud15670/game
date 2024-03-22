@@ -1,0 +1,11 @@
+{% extends 'program/layout.html' %}
+
+{% block body %}
+<h1>Tests</h1>
+<ul>
+    {% for test in tests %}
+    <li><a href="{% url 'test_detil' test.id %}">{{test}}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

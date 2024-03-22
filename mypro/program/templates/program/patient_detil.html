@@ -30,4 +30,7 @@
 </table>
 <a href="{% url 'patient_edit' patient.id %}">edit</a>
 <a href="{% url 'patient_delete' patient.id %}">delete</a>
+{% for test in patient.result_set.all %}
+<div>{{test.ref}}</div>
+{% endfor %}
 {% endblock %}
