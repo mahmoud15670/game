@@ -34,16 +34,17 @@ class Patient(models.Model):
 
     def add_result(self):
         for test in self.tests.all():
-            result = Result(
-                patient = Patient.objects.get(pk=self.id),
-                test = test,
-                ref = ''
-            )
-            if self.gender == 'male':
-                result.ref = test.male_ref
-            else:
-                result.ref = test.female_ref
-            result.save()
+            if test not in [test.test for test in self.result_set.all()]:
+                result = Result(
+                    patient = Patient.objects.get(pk=self.id),
+                    test = test,
+                    ref = ''
+                )
+                if self.gender == 'male':
+                    result.ref = test.male_ref
+                else:
+                    result.ref = test.female_ref
+                result.save()
 
     def __str__(self):
         return self.name
